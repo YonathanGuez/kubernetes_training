@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deploy
+spec:
+  selector:
+    matchLabels:
+      app: test-node
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-node
+    spec:
+      containers:
+      - name: test-node
+        image: localhost:5000/test
+        ports:
+        - containerPort: 3000

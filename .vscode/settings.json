@@ -1,0 +1,9 @@
+{
+    "prettier.enableDebugLogs": true,
+    "prettier.jsxSingleQuote": true,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "[yaml]": {
+        "editor.formatOnSave": true
+    }
+}
