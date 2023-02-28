@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-deploy
+spec:
+  selector:
+    matchLabels:
+      app: test-node
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: test-node
+    spec:
+      containers:
+      - name: test-node
+        image: localhost:5000/test
+        ports:
+        - containerPort: 3000
+---
+kind: "Endpoints"
+apiVersion: "v1"
+metadata:
+  name: "external-example-service"
+subsets:
+- addresses:
+  - ip: "11.11.11.11"
+  ports:
+  - port: 80
+    name: "test-node"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-example-service
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: docker.for.win.localhost
+spec:
+  type: ExternalName
+  externalName: docker.for.win.localhost

@@ -33,6 +33,15 @@ docker pull nginx
 kubectl apply -f  .\deployment-nginx.yaml
 ```
 
+get pod :
+```
+kubectl get pod
+```
+
+enter in the pod :
+```
+kubectl exec -it test-deploy-979784999-cxtrh -- /bin/sh
+```
 #### 3) For call nginx outside we need port-forward:
 ```
 kubectl port-forward service/test-nginx 8080:80
@@ -68,9 +77,10 @@ kubectl expose deployment test-deploy --type=LoadBalancer --name=my-service
 ```
 kubectl get services my-service     
 ```
+```
 NAME         TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 my-service   LoadBalancer   10.96.118.73   localhost     3000:31129/TCP   5m49s
-
+```
 Use the external IP address (LoadBalancer Ingress) to access to the app:
 ```
 curl http://<external-ip>:<port>
@@ -119,15 +129,16 @@ kubectl delete -f  1-deployment-service-clusterip.yaml
 When a NodePort is created, kube-proxy exposes a port in the range 30000-32767:
 The problem with using a NodePort is that you still need to access each of the Nodes separately.
 ```
-kubectl apply -f .\2-deployment-service-ingress.yaml
+kubectl apply -f .\2-deployment-service-nodeport-ingress.yaml
 ```
 ```
 kubectl get service
 ```
+```
 NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 kubernetes          ClusterIP   10.96.0.1       <none>        443/TCP          36d
 test-node-service   NodePort    10.99.122.245   <none>        3000:31751/TCP   9s
-
+```
 Check chrome :
 ```
 http://127.0.0.1:31751/
@@ -135,7 +146,7 @@ http://127.0.0.1:31751/
 
 Delete:
 ```
-kubectl delete -f .\2-deployment-service-ingress.yaml
+kubectl delete -f .\2-deployment-service-nodeport-ingress.yaml
 ```
 
 ### 3) Example with LoadBalancer:
@@ -152,8 +163,10 @@ kubectl apply -f .\3-deployment-loadbalancer.yaml
 ```
 kubectl get service example-service
 ```
+```
 NAME              TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
 example-service   LoadBalancer   10.100.32.92   localhost     3000:30118/TCP   36s
+```
 
 Check chrome :
 ```
@@ -165,7 +178,65 @@ Delete:
 kubectl delete -f .\3-deployment-loadbalancer.yaml
 ```
 
-### 4) Example with ExternalName
+### 4) Example Headless Service
+A headless service is a service with a service IP but instead of load-balancing it will return the IPs of our associated Pods. 
+This allows us to interact directly with the Pods instead of a proxy. 
+It's as simple as specifying clusterIP: None and can be utilized with or without selectors.
+
+#### Example:
+we will run 4 replicats with time:
+```
+kubectl apply -f .\4-deployment-headless.yaml 
+```
+
+check if it's running with port-forward because i not expose IP :
+```
+kubectl port-forward --address 0.0.0.0 service/example-service 8080:3000
+curl http://127.0.0.1:8080/
+```
+
+Now what it is doing really :
+for that we will use the image dockerbogo/utils:
+```
+docker pull dockerbogo/utils
+kubectl run -it -t utils --image dockerbogo/utils bash
+```
+this image help us to check what append in the pod :
+inside the pod utils root@utils:/#
+```
+nslookup example-service
+```
+I will get :
+```
+root@utils:/# nslookup example-service
+Server:         10.96.0.10
+Address:        10.96.0.10#53
+
+Name:   example-service.default.svc.cluster.local
+Address: 10.1.0.132
+Name:   example-service.default.svc.cluster.local
+Address: 10.1.0.136
+Name:   example-service.default.svc.cluster.local
+Address: 10.1.0.135
+Name:   example-service.default.svc.cluster.local
+Address: 10.1.0.137
+```
+So my service can listen my for pods without to specify IPs
+
+Delete All :
+```
+kubectl delete -f .\4-deployment-headless.yaml  
+kubectl delete pod utils
+```
+
+Example utilisation of headless: scraping replicas for prometheus: 
+
+https://medium.com/data-reply-it-datatech/using-a-headless-service-to-expose-replicas-for-prometheus-scraping-543194594e0
+
+### 5) Example ExternalIP
+
+
+### 6) Example with ExternalName
 The ExternalName service was introduced due to the need of connecting to an element outside of the Kubernetes cluster. Think of it not as a way to connect to an item within your cluster, but as a connector to an external element of the cluster.
 
 This serves two purposes:
