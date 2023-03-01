@@ -183,6 +183,12 @@ A headless service is a service with a service IP but instead of load-balancing 
 This allows us to interact directly with the Pods instead of a proxy. 
 It's as simple as specifying clusterIP: None and can be utilized with or without selectors.
 
+When there is no need of load balancing or single-service IP addresses.We create a headless service which is used for creating a service grouping. That does not allocate an IP address or forward traffic
+
+For example, if you host MongoDB on a single pod. And you need a service definition on top of it for taking care of the pod restart.And also for acquiring a new IP address. But you don’t want any load balancing or routing. You just need the service to patch the request to the back-end pod. So then you use Headless Service since it does not have an IP.
+
+Kubernetes allows clients to discover pod IPs through DNS lookups. Usually, when you perform a DNS lookup for a service, the DNS server returns a single IP which is the service’s cluster IP. But if you don’t need the cluster IP for your service, you can set ClusterIP to None , then the DNS server will return the individual pod IPs instead of the service IP.Then client can connect to any of them.
+
 #### Example:
 we will run 4 replicats with time:
 ```
@@ -244,6 +250,78 @@ This serves two purposes:
 It creates a single endpoint for all communications to that element.
 In case that external service needs to be replaced, it’s easier to switch by just modifying the ExternalName, instead of all connections.
 
+### 7) Exemple service without Selector:
+when used with a corresponding set of EndpointSlices objects and without a selector, the Service can abstract other kinds of backends, including ones that run outside the cluster.
+For example:
+
+You want to have an external database cluster in production, but in your test environment you use your own databases.
+You want to point your Service to a Service in a different Namespace or on another cluster.
+You are migrating a workload to Kubernetes. While evaluating the approach, you run only a portion of your backends in Kubernetes.
+
+example :
+```
+kubectl apply -f .\7-deployment-svc-without-selectors.yaml
+```
+we will build 2 pods with @ differents ip :
+```
+kubectl get pods -o wide
+```
+
+we get :
+```
+NAME                          READY   STATUS    RESTARTS        AGE     IP           NODE             NOMINATED NODE   READINESS GATES
+test-deploy-979784999-gkkl9   1/1     Running   0               75m     10.1.0.149   docker-desktop   <none>           <none>
+test-deploy-979784999-kqq7w   1/1     Running   0               75m     10.1.0.150   docker-desktop   <none>           <none>
+utils                         1/1     Running   1 (4h49m ago)   5h18m   10.1.0.148   docker-desktop   <none>           <none>
+```
+1 - 10.1.0.149
+2 - 10.1.0.150
+
+I add those ip in my ENDPOINTS : 
+```
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: example-service
+subsets:
+- addresses:
+  - ip: 10.1.0.149 # ip from pod 1
+  - ip: 10.1.0.150 # ip from pod 2
+  ports:
+  - port: 3000
+```
+
+Now i will run my project another time for update Endpoints:
+```
+kubectl apply -f .\7-deployment-svc-without-selectors.yaml
+```
+
+I will check my connections with container utils:
+```
+docker pull dockerbogo/utils
+kubectl run -it -t utils --image dockerbogo/utils bash
+```
+this image help us to check what append in the pod :
+inside the pod utils root@utils:/#
+```
+root@utils:/# nslookup example-service
+Server:         10.96.0.10
+Address:        10.96.0.10#53
+
+Name:   example-service.default.svc.cluster.local
+Address: 10.97.104.15
+```
+```
+curl 10.97.104.15:3000
+
+or 
+
+curl example-service:3000
+```
+result : "Hi there"
+as i service is connected to my pods 
+but i cannot use portforwar because i don't have selector 
+
 ### Explanation
 
 https://sysdig.com/blog/kubernetes-services-clusterip-nodeport-loadbalancer/
@@ -277,3 +355,10 @@ Above 1 and 2 approach will require to write config file:
 
 Dont need config file:
 3 - Port Forward: We can run a command at our terminal that tells our kubernets cluster to port-forward a port off a very specific pod inside of our cluster when we use this port forwarding thing that's going to cause our cluster to essentially behaves as though it has a node port service running inside it. It's going to expose this pod or a very specific port on it to the outside world and allow us to connect to it directly from our local machine.
+
+#### how to choose the Service:
+
+If we only have to have a single service port we can use NodePort.
+In the case of multiple instances of the same service, we have to use the LoadBalancer.
+Ingress is used when we have multiple services on our cluster and we want the user request routed to the service based on their path.
+Ingress is most useful if you want to expose multiple services under the same IP address, and these services all use the same L7 protocol (typically HTTP). 
