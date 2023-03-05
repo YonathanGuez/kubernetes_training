@@ -239,18 +239,7 @@ Example utilisation of headless: scraping replicas for prometheus:
 
 https://medium.com/data-reply-it-datatech/using-a-headless-service-to-expose-replicas-for-prometheus-scraping-543194594e0
 
-### 5) Example ExternalIP
-
-
-### 6) Example with ExternalName
-The ExternalName service was introduced due to the need of connecting to an element outside of the Kubernetes cluster. Think of it not as a way to connect to an item within your cluster, but as a connector to an external element of the cluster.
-
-This serves two purposes:
-
-It creates a single endpoint for all communications to that element.
-In case that external service needs to be replaced, it’s easier to switch by just modifying the ExternalName, instead of all connections.
-
-### 7) Exemple service without Selector:
+### 5) Exemple service without Selector:
 when used with a corresponding set of EndpointSlices objects and without a selector, the Service can abstract other kinds of backends, including ones that run outside the cluster.
 For example:
 
@@ -260,7 +249,7 @@ You are migrating a workload to Kubernetes. While evaluating the approach, you r
 
 example :
 ```
-kubectl apply -f .\7-deployment-svc-without-selectors.yaml
+kubectl apply -f .\5-deployment-svc-without-selectors.yaml
 ```
 we will build 2 pods with @ differents ip :
 ```
@@ -293,7 +282,7 @@ subsets:
 
 Now i will run my project another time for update Endpoints:
 ```
-kubectl apply -f .\7-deployment-svc-without-selectors.yaml
+kubectl apply -f .\5-deployment-svc-without-selectors.yaml
 ```
 
 I will check my connections with container utils:
@@ -321,6 +310,57 @@ curl example-service:3000
 result : "Hi there"
 as i service is connected to my pods 
 but i cannot use portforwar because i don't have selector 
+
+### 6) Example ExternalIP
+help with this site : 
+
+https://medium.com/swlh/kubernetes-external-ip-service-type-5e5e9ad62fcd
+
+for this example we need to get the IP of the Node :
+```
+kubectl get node
+```
+for me it's docker-desktop
+
+```
+kubectl describe node docker-desktop
+```
+we will get:
+Addresses:
+  InternalIP:  192.168.65.4
+  Hostname:    docker-desktop
+so my InternalIP of this node is my externalIP 
+```
+ externalIPs:
+  - 192.168.65.4
+```
+
+now i will run :
+```
+kubectl apply -f .\6-deployment-externalip.yaml
+```
+
+and now i will check :
+```
+kubectl run -it -t utils --image dockerbogo/utils bash
+```
+now i will check inside if i can call the extrernalIP 
+```
+curl 192.168.65.4:3000 
+```
+
+Delete all :
+```
+kubectl delete -f .\6-deployment-externalip.yaml
+```
+
+### 7) Example with ExternalName
+The ExternalName service was introduced due to the need of connecting to an element outside of the Kubernetes cluster. Think of it not as a way to connect to an item within your cluster, but as a connector to an external element of the cluster.
+
+This serves two purposes:
+
+It creates a single endpoint for all communications to that element.
+In case that external service needs to be replaced, it’s easier to switch by just modifying the ExternalName, instead of all connections.
 
 ### Explanation
 
