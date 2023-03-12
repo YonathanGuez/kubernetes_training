@@ -2,6 +2,7 @@
 
 ## Build local register with Volume on Windows
 [- Build and run](./local-register-windows)
+
 [- Push image in local registry](./local-register-windows)
 
 ## Deployment
@@ -11,7 +12,7 @@
  [- Test deployment on Docker Windows](./1-example-nginx-ingress)
 
 ### 2) Test deployment of my API
-  [- Example ClusterIp and port-forward for verification](./2-examples-services)
+  [- Example ClusterIp and port-forward for verification](./2-examples-services#1-example-useing-clusterip-and-port-forward-for-verification)
 
   [- Example NodePort and Ingress](./2-examples-services)
 
