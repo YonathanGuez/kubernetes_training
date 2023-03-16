@@ -24,7 +24,7 @@ metadata:
   name: "external-example-service"
 subsets:
 - addresses:
-  - ip: "11.11.11.11"
+  - ip: 192.168.65.4
   ports:
   - port: 80
     name: "test-node"

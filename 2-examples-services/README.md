@@ -296,6 +296,11 @@ Load Balancers
 A final service type is LoadBalancer. These services automatically integrate with the load balancers provided by public cloud environments. You’ll need to set up your own load balancer if you’re self-hosting your cluster.
 Load balancers are used to map external IP addresses to services in your cluster. Unlike Ingresses, there’s no automatic filtering or routing. Traffic to the external IP and port will be sent straight to your service. This means that they’re suitable for all traffic types.
 
+### test :
+```
+kubectl apply -f .\6-deployment-externalip.yaml
+```
+
 #### Cluster access:
 
 To access something inside the cluster, there ae a couple of different options available to,
