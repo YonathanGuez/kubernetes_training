@@ -73,3 +73,104 @@ if tow container in same pod we need to specify the container
 ```
 kubectl logs POD_NAME -c CONTAINER_NAME
 ```
+ ### Get Metrics Kubernetes
+
+ ```kubectl top node
+ ```
+
+ ```kubectl top pod -A --containers=true
+ ```
+
+ ### fake ssh docker-desktop
+ ```
+ docker run -it --rm --privileged --pid=host justincormack/nsenter1                                                   
+ ```
+
+ # RoadMap Kubernetes :
+ ## Learn Kubernetes Architecture
+ ### Control plane components
+ ### Worker node components:
+ ### Addon Components
+ ### Cluster high availability
+ ### Network Design
+
+ ## Kubeconfig File Explained With Practical Examples:
+ [link here](./kubeconfig.md) 
+ ### Different Methods to Connect Kubernetes Cluster With Kubeconfig File
+ ### Merging Multiple Kubeconfig Files
+ ### How to Generate Kubeconfig File
+
+
+ ## Pod concepts:
+  Deploy a pod
+  Deploy pod on the specific worker node
+ ### Service
+  Add service to pod
+  Expose the pod Service using Nodeport
+ ### Ingress
+  Expose the Pod Service using Ingress
+ ### Persistent Volume
+  Setup Pod resources & limits
+  Setup Pod with startup, liveness, and readiness probes.
+  Add Persistent Volume to the pod.
+ ### Configmap
+  Attach configmap to pod
+ ### Secret
+  Add Secret to pod
+
+## Multi container :
+multi-container pods (sidecar container pattern)
+Init containers
+Ephemeral containers
+Static Pods
+Learn to troubleshoot Pods
+Pod Preemption & Priority
+Pod Disruption Budget
+Pod Placement Using a Node Selector
+Pod Affinity and Anti-affinity
+
+## Learn Pod Dependent Objects
+Replicaset
+Deployment
+Daemonsets
+Statefulset
+Jobs & Cronjobs
+
+## Learn Ingress & Ingress Controllers
+Kubernetes Ingress Explained
+Setting up Nginx Ingress Controller
+
+## Learn End to End Microservices Application Deployment on Kubernetes
+Build Docker images for all the services. Ensure you optimize the Dockerfile to reduce the Docker Image size.
+Create manifests for all the services. (Deployment, Statefulset, Services, Configmaps, Secrets, etc)
+Expose the front end with service type ClusterIp
+Deploy Nginx Ingress controller and expose it with service type Loadbalancer
+Map the loadbalancer IP to the domain name.
+Create an ingress object with a DNS name with the backend as a front-end service name.
+Validate the application.
+
+## Learn About Securing Kubernetes Cluster
+Service account
+Pod Security Context
+Seccomp & AppArmor
+Role Based Access Control (RBAC)
+Attribute-based access control (ABAC) 
+Network Policies
+
+The following are the open-source tools you need to look at: Open Policy Agent ,Kyverno ,Kube-bench,Kube-hunter ,Falco
+
+## Learn About Kubernetes Configuration Management Tools
+Helm (Templating Engine)
+Kuztomize (Overlay Engine)
+
+## Learn About Kubernetes Operator Pattern
+Custom resource definitions
+Admission controllers
+Validating & Mutating Webhooks
+
+## Learn Important Kubernetes Configurations
+Custom DNS server
+Custom image registry
+Shipping logs to external logging systems
+Kubernetes OpenID Connect
+Segregating & securing Nodes for PCI & PII Workloads
