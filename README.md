@@ -15,9 +15,7 @@
 
 
 ## Pod concepts:
-  [Deploy a pod](./pod-concepts/README.md)
-  
-  Deploy pod on the specific worker node
+  [Deploy a pod](./pod-concepts/README.md) : Deploy pod on the specific worker node
 
 ### Service
 
