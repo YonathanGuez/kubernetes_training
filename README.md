@@ -21,17 +21,17 @@
 
 [- Example ClusterIp and port-forward for verification](./pod-concepts/2-examples-services#1-example-useing-clusterip-and-port-forward-for-verification)
 
-[- Example NodePort and Ingress](./pod-concepts/2-examples-services)
+[- Example NodePort and Ingress](./pod-concepts/2-examples-services2-examples-services#2-example-with-nodeport-and-ingress)
 
-[- Example LoadBalancer](./pod-concepts/2-examples-services)
+[- Example LoadBalancer](./pod-concepts/2-examples-services#3-example-with-loadbalancer)
 
-[- Example Headless Service](./pod-concepts/2-examples-services)
+[- Example Headless Service](./pod-concepts/2-examples-services#4-example-headless-service)
 
-[- Exemple service without Selector](./pod-concepts/2-examples-services)
+[- Exemple service without Selector](./pod-concepts/2-examples-services#5-exemple-service-without-selector)
 
-[- Example ExternalIP](./pod-concepts/2-examples-services)
+[- Example ExternalIP](./pod-concepts/2-examples-services#6-example-externalip)
 
-[- Example ExternalName](./pod-concepts/2-examples-services)
+[- Example ExternalName](./pod-concepts/2-examples-services#7-example-with-externalname)
 
 #### Ingress
 Expose the Pod Service using Ingress
