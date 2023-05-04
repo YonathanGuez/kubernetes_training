@@ -2,25 +2,24 @@
 
  # RoadMap Kubernetes :
  ## Learn Kubernetes Architecture
- ### Control plane components
- ### Worker node components:
- ### Addon Components
- ### Cluster high availability
- ### Network Design
+- Control plane components
+- Worker node components:
+- Addon Components
+- Cluster high availability
+- Network Design
 
- ## Kubeconfig File Explained With Practical Examples:
- [link here](./kubeconfig.md) 
- ### Different Methods to Connect Kubernetes Cluster With Kubeconfig File
- ### Merging Multiple Kubeconfig Files
- ### How to Generate Kubeconfig File
+ ## Kubeconfig File Explained With Practical Examples: [link here](./kubeconfig.md) 
+- Different Methods to Connect Kubernetes Cluster With Kubeconfig File
+- Merging Multiple Kubeconfig Files
+- How to Generate Kubeconfig File
 
 
 ## Pod concepts:
   [Deploy a pod](./pod-concepts/README.md)
+  
   Deploy pod on the specific worker node
 
 ### Service
-[SERVICE POD](./pod-concepts/2-examples-services/README.md)
 
 [- Example ClusterIp and port-forward for verification](./pod-concepts/2-examples-services#1-example-useing-clusterip-and-port-forward-for-verification)
 
@@ -38,6 +37,7 @@
 
 #### Ingress
 Expose the Pod Service using Ingress
+
 [- Deployment Ingress with Nginx](./pod-concepts/1-example-nginx-ingress/README.md)
 
 [- Test deployment on Docker Windows](./pod-concepts/1-example-nginx-ingress/README.md)
@@ -54,43 +54,43 @@ Expose the Pod Service using Ingress
 - Add Secret to pod
 
 ## Multi container :
-multi-container pods (sidecar container pattern)
-Init containers
-Ephemeral containers
-Static Pods
-Learn to troubleshoot Pods
-Pod Preemption & Priority
-Pod Disruption Budget
-Pod Placement Using a Node Selector
-Pod Affinity and Anti-affinity
+- multi-container pods (sidecar container pattern)
+- Init containers
+- Ephemeral containers
+- Static Pods
+- Learn to troubleshoot Pods
+- Pod Preemption & Priority
+- Pod Disruption Budget
+- Pod Placement Using a Node Selector
+- Pod Affinity and Anti-affinity
 
 ## Learn Pod Dependent Objects
-Replicaset
-Deployment
-Daemonsets
-Statefulset
-Jobs & Cronjobs
+- Replicaset
+- Deployment
+- Daemonsets
+- Statefulset
+- Jobs & Cronjobs
 
 ## Learn Ingress & Ingress Controllers
-Kubernetes Ingress Explained
-Setting up Nginx Ingress Controller
+- Kubernetes Ingress Explained
+- Setting up Nginx Ingress Controller
 
 ## Learn End to End Microservices Application Deployment on Kubernetes
-Build Docker images for all the services. Ensure you optimize the Dockerfile to reduce the Docker Image size.
-Create manifests for all the services. (Deployment, Statefulset, Services, Configmaps, Secrets, etc)
-Expose the front end with service type ClusterIp
-Deploy Nginx Ingress controller and expose it with service type Loadbalancer
-Map the loadbalancer IP to the domain name.
-Create an ingress object with a DNS name with the backend as a front-end service name.
-Validate the application.
+- Build Docker images for all the services. Ensure you optimize the Dockerfile to reduce the Docker Image size.
+- Create manifests for all the services. (Deployment, Statefulset, Services, Configmaps, Secrets, etc)
+- Expose the front end with service type ClusterIp
+- Deploy Nginx Ingress controller and expose it with service type Loadbalancer
+- Map the loadbalancer IP to the domain name.
+- Create an ingress object with a DNS name with the backend as a front-end service name.
+- Validate the application.
 
 ## Learn About Securing Kubernetes Cluster
-Service account
-Pod Security Context
-Seccomp & AppArmor
-Role Based Access Control (RBAC)
-Attribute-based access control (ABAC) 
-Network Policies
+- Service account
+- Pod Security Context
+- Seccomp & AppArmor
+- Role Based Access Control (RBAC)
+- Attribute-based access control (ABAC) 
+- Network Policies
 
 The following are the open-source tools you need to look at: Open Policy Agent ,Kyverno ,Kube-bench,Kube-hunter ,Falco
 
