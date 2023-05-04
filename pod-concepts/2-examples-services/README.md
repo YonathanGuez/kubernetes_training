@@ -10,7 +10,7 @@ it s usefull for internal connection
 
 Deployment Service :
 ```
-kubectl apply -f  .\1-deployment-service-clusterip.yaml
+kubectl apply -f  .\pod-concepts\2-examples-services\1-deployment-service-clusterip.yaml
 ```
 
 Get Service IP and PORT :
@@ -41,7 +41,7 @@ kubectl delete -f  1-deployment-service-clusterip.yaml
 When a NodePort is created, kube-proxy exposes a port in the range 30000-32767:
 The problem with using a NodePort is that you still need to access each of the Nodes separately.
 ```
-kubectl apply -f .\2-deployment-service-nodeport-ingress.yaml
+kubectl apply -f .\pod-concepts\2-examples-services\2-deployment-service-nodeport-ingress.yaml
 ```
 ```
 kubectl get service
@@ -58,7 +58,7 @@ http://127.0.0.1:31751/
 
 Delete:
 ```
-kubectl delete -f .\2-deployment-service-nodeport-ingress.yaml
+kubectl delete -f .\pod-concepts\2-examples-services\2-deployment-service-nodeport-ingress.yaml
 ```
 
 ### 3) Example with LoadBalancer:
@@ -70,7 +70,7 @@ Uses a LoadBalancer implementation from your cloud provider (your cloud provider
 The main difference with NodePort is that LoadBalancer can be accessed and will try to equally assign requests to Nodes.
 
 ```
-kubectl apply -f .\3-deployment-loadbalancer.yaml
+kubectl apply -f .\pod-concepts\2-examples-services\3-deployment-loadbalancer.yaml
 ```
 ```
 kubectl get service example-service
@@ -87,7 +87,7 @@ http://localhost:3000/
 
 Delete:
 ```
-kubectl delete -f .\3-deployment-loadbalancer.yaml
+kubectl delete -f .\pod-concepts\2-examples-services\3-deployment-loadbalancer.yaml
 ```
 
 ### 4) Example Headless Service
@@ -104,7 +104,7 @@ Kubernetes allows clients to discover pod IPs through DNS lookups. Usually, when
 #### Example:
 we will run 4 replicats with time:
 ```
-kubectl apply -f .\4-deployment-headless.yaml 
+kubectl apply -f .\pod-concepts\2-examples-services\4-deployment-headless.yaml 
 ```
 
 check if it's running with port-forward because i not expose IP :
@@ -143,7 +143,7 @@ So my service can listen my for pods without to specify IPs
 
 Delete All :
 ```
-kubectl delete -f .\4-deployment-headless.yaml  
+kubectl delete -f .\pod-concepts\2-examples-services\4-deployment-headless.yaml  
 kubectl delete pod utils
 ```
 
@@ -160,7 +160,7 @@ You are migrating a workload to Kubernetes. While evaluating the approach, you r
 
 example :
 ```
-kubectl apply -f .\5-deployment-svc-without-selectors.yaml
+kubectl apply -f .\pod-concepts\2-examples-services\5-deployment-svc-without-selectors.yaml
 ```
 we will build 2 pods with @ differents ip :
 ```
@@ -193,7 +193,7 @@ subsets:
 
 Now i will run my project another time for update Endpoints:
 ```
-kubectl apply -f .\5-deployment-svc-without-selectors.yaml
+kubectl apply -f .\pod-concepts\2-examples-services\5-deployment-svc-without-selectors.yaml
 ```
 
 I will check my connections with container utils:
@@ -248,7 +248,7 @@ so my InternalIP of this node is my externalIP
 
 now i will run :
 ```
-kubectl apply -f .\6-deployment-externalip.yaml
+kubectl apply -f .\pod-concepts\2-examples-services\6-deployment-externalip.yaml
 ```
 
 and now i will check :
@@ -262,7 +262,7 @@ curl 192.168.65.4:3000
 
 Delete all :
 ```
-kubectl delete -f .\6-deployment-externalip.yaml
+kubectl delete -f .\pod-concepts\2-examples-services\6-deployment-externalip.yaml
 ```
 
 ### 7) Example with ExternalName
@@ -298,7 +298,7 @@ Load balancers are used to map external IP addresses to services in your cluster
 
 ### test :
 ```
-kubectl apply -f .\6-deployment-externalip.yaml
+kubectl apply -f .\pod-concepts\2-examples-services\6-deployment-externalip.yaml
 ```
 
 #### Cluster access:

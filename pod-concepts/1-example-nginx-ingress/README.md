@@ -13,9 +13,9 @@ kubectl config set-context --current --namespace=java2days
 ```
 ## Deployment Ingress with Nginx
 ```
-kubectl apply -f .\1-example-nginx-ingress\deployment-nginx-backend.yaml
-kubectl apply -f .\1-example-nginx-ingress\service-nginx.yaml
-kubectl apply -f .\1-example-nginx-ingress\ingress-nginx.yaml
+kubectl apply -f .\pod-concepts\1-example-nginx-ingress\deployment-nginx-backend.yaml
+kubectl apply -f .\pod-concepts\1-example-nginx-ingress\service-nginx.yaml
+kubectl apply -f .\pod-concepts\1-example-nginx-ingress\ingress-nginx.yaml
 ```
 ```
 kubectl get service 
@@ -30,9 +30,9 @@ curl -I IP_COMPUTER:32648
 ## Delete all deployment service ingress and namespace
 
 ```
-kubectl delete -f .\1-example-nginx-ingress\deployment-nginx-backend.yaml
-kubectl delete -f .\1-example-nginx-ingress\service-nginx.yaml
-kubectl delete -f .\1-example-nginx-ingress\ingress-nginx.yaml
+kubectl delete -f .\pod-concepts\1-example-nginx-ingress\deployment-nginx-backend.yaml
+kubectl delete -f .\pod-concepts\1-example-nginx-ingress\service-nginx.yaml
+kubectl delete -f .\pod-concepts\1-example-nginx-ingress\ingress-nginx.yaml
 ```
 
 ```
@@ -52,7 +52,7 @@ docker pull nginx
 ```
 #### 2) Deployment Nginx and service:
 ```
-kubectl apply -f  .\deployment-nginx.yaml
+kubectl apply -f  .\pod-concepts\1-example-nginx-ingress\deployment-nginx.yaml
 ```
 
 get pod :
