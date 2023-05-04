@@ -87,23 +87,25 @@ spec:
 ```
 
 ### Service
-[SERVICE POD](./pod-concepts/2-examples-services/README.md)
-Expose the pod Service using ClusterIP
-Expose the pod Service using Nodeport
-Expose the pod Service using loadBalancer
-Headless
-Service without Selectors
-ExternalIP
-ExternalName
+[SERVICE POD](./2-examples-services/README.md)
+
+- Expose the pod Service using ClusterIP
+- Expose the pod Service using Nodeport
+- Expose the pod Service using loadBalancer
+- Headless
+- Service without Selectors
+- ExternalIP
+- ExternalName
 
 #### Ingress
-[NGINX with Ingress](./pod-concepts/1-example-nginx-ingress/README.md)
+[NGINX with Ingress](./1-example-nginx-ingress/README.md)
+
 Expose the Pod Service using Ingress
 
 ### Persistent Volume
-Setup Pod resources & limits
-Setup Pod with startup, liveness, and readiness probes.
-Add Persistent Volume to the pod.
+- Setup Pod resources & limits
+  Setup Pod with startup, liveness, and readiness probes.
+- Add Persistent Volume to the pod.
 
 ### Configmap
 Attach configmap to pod
