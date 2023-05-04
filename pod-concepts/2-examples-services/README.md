@@ -1,7 +1,7 @@
-# Kubernetes Training
+# Kubernetes: Service
 
 ## Install :
-[before you need to install the local Register and add image test in your local regiser](../local-register-windows/README.md)
+[before you need to install the local Register and add image test in your local regiser](./../../local-register-windows/README.md)
 
 
 ### 1) Example useing ClusterIp and port-forward for verification
