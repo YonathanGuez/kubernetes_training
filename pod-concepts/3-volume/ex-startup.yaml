@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: startup
+  name: startup-exec
+spec:
+  containers:
+  - name: startup
+    image: localhost:5000/busybox
+    args:
+    - /bin/sh
+    - -c
+    - sleep 300
+    startupProbe:
+      exec:
+        command:
+        - cat
+        - /etc/foobar
+      periodSeconds: 10
+      failureThreshold: 10
