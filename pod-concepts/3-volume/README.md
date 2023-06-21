@@ -239,5 +239,11 @@ Startup probes support the four basic Kubernetes probing mechanisms:
 
 - gRPC: Makes a gRPC health checking request to a port inside the container and uses its result to determine whether the probe succeeded.
 
+### Summary
+Startup Probes: Used to check if the application inside the Container has started
+
+Liveness Probes: Used to check if the container is available and alive.
+
+Readiness Probes: Used to check if the application is ready to use and serve the traffic
 
 ## Add Persistent Volume to the pod.
