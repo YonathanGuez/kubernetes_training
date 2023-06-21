@@ -168,6 +168,12 @@ kubectl delete -f .\ex-readiness.yaml
 The kubelet uses startup probes to know when a container application has started.
 If such a probe is configured, it disables liveness and readiness checks until it succeeds, making sure those probes don't interfere with the application startup. This can be used to adopt liveness checks on slow starting containers, avoiding them getting killed by the kubelet before they are up and running.
 
+- It is used to indicate if the application inside the Container has started.
+- If a startup probe is provided, all other probes are disabled.
+- If the request fails, it will restart the container.
+- Once the startup probe has succeeded once, the liveness probe takes over to provide a fast response to container deadlocks.
+- If not provided the default state is Success.
+
 ```
 kubectl apply -f ex-startup.yaml
 ```
