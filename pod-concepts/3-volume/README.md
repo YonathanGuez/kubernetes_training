@@ -221,5 +221,17 @@ delete deployment:
 ```
 kubectl delete -f .\ex-startup.yaml
 ```
+### DIFFRENTE CONFIG FOR PROBES
+
+Startup probes support the four basic Kubernetes probing mechanisms:
+
+- Exec: Executes a command within the container. The probe succeeds if the command exits with a 0 code.
+
+- HTTP: Makes an HTTP call to a URL within the container. The probe succeeds if the container issues an HTTP response in the 200-399 range.
+
+- TCP: The probe succeeds if a specific container port is accepting traffic.
+
+- gRPC: Makes a gRPC health checking request to a port inside the container and uses its result to determine whether the probe succeeded.
+
 
 ## Add Persistent Volume to the pod.
