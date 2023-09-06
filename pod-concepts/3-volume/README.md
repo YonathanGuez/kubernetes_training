@@ -301,9 +301,13 @@ spec:
 ### Test on Postgres with Statefulset 
 
 A StatefulSet does three big things differently from a Deployment:
+
 1- It creates a new PersistentVolumeClaim for each replica;
+
 2- It gives the pods sequential names, starting with statefulsetname-0.
+
 3- It starts the pods in a specific order (ascending numerically).
+
 This is useful when the database itself knows how to replicate data between different copies of itself.
 StatefulSet it will make sure to terminate the existing Pod before creating a new, so that there are never more than 1 (when you have 1 as desired number of replicas).
 
