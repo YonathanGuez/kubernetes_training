@@ -41,9 +41,11 @@ Expose the Pod Service using Ingress
 [- Test deployment on Docker Windows](./pod-concepts/1-example-nginx-ingress/README.md)
 
 ### Persistent Volume
-- Setup Pod resources & limits
-- Setup Pod with startup, liveness, and readiness probes.
-- Add Persistent Volume to the pod.
+[- Setup Pod resources & limits ](./pod-concepts/3-volume/README.md)
+
+[- Setup Pod with startup, liveness, and readiness probes ](./pod-concepts/3-volume/README.md)
+
+[- Add Persistent Volume to the pod](./pod-concepts/3-volume/README.md)
 
 ### Configmap
 - Attach configmap to pod

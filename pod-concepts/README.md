@@ -103,9 +103,14 @@ spec:
 Expose the Pod Service using Ingress
 
 ### Persistent Volume
-- Setup Pod resources & limits
-  Setup Pod with startup, liveness, and readiness probes.
-- Add Persistent Volume to the pod.
+[Add Persistent Volume ](./3-volume/README.md)
+
+- Setup Pod resources & limits:
+- Setup Pod with startup, liveness, and readiness probes.
+- Add Persistent Volume to the pod:
+  * Persistent Volume 
+  * Persistence Volume Claim
+  * Test on Postgres with Statefulset 
 
 ### Configmap
 Attach configmap to pod
