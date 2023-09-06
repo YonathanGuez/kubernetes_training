@@ -257,7 +257,9 @@ That will tell you Pod where to stock all you data and what is the size
 
 In this example we use storageClassName: hostpath (it s our local node storage)
 You can check that with : 
-```kubectl get storageclass
+
+```
+kubectl get storageclass
 ```
 
 So we put local node storage + 1Go + call "/run/desktop/mnt/host/c/tmp/" for c:/tmp in windows:
