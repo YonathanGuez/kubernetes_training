@@ -115,5 +115,57 @@ Expose the Pod Service using Ingress
 ### Configmap
 Attach configmap to pod
 
+ConfigMap:
+```
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  labels:
+    app: postgres
+data:
+  POSTGRES_DB: postgresdb
+  POSTGRES_USER: admin
+  POSTGRES_PASSWORD: admin123
+```
+
+In My POD :
+spec.template.spec.containers:
+```
+  envFrom:
+        - configMapRef:
+            name: postgres-config
+```
+So now all the data inside ConfigMap are called (POSTGRES_DB,POSTGRES_USER,POSTGRES_PASSWORD)
+you can check the example of [ex-pg-volume-local-windows.yaml](./3-volume/ex-pg-volume-local-windows.yaml)
+
+```
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: postgres
+  selector:
+    matchLabels:
+      app: postgres
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:10.4
+        imagePullPolicy: "IfNotPresent"
+        ports:
+        - containerPort: 5432
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+      .........
+```
+
 ### Secret
 Add Secret to pod
