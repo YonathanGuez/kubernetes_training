@@ -48,7 +48,7 @@ Expose the Pod Service using Ingress
 [- Add Persistent Volume to the pod](./pod-concepts/3-volume/README.md)
 
 ### Configmap
-- Attach configmap to pod
+[- Attach configmap to pod](./pod-concepts/README.md)
 
 ### Secret
 - Add Secret to pod
