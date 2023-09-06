@@ -334,3 +334,12 @@ Check logs for postgres-0:
 ```
 kubectl logs postgres-0
 ```
+
+Return :
+```
+2023-09-06 14:07:58.502 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-09-06 14:07:58.502 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2023-09-06 14:07:58.516 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2023-09-06 14:07:58.586 UTC [24] LOG:  database system was shut down at 2023-09-06 13:42:51 UTC
+2023-09-06 14:07:58.617 UTC [1] LOG:  database system is ready to accept connections
+```
