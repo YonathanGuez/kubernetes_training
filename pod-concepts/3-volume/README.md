@@ -278,7 +278,7 @@ spec:
     # deployment volume on local machine windows : c:/tmp (youn need to have tmp available and empty in your local)
     path: "/run/desktop/mnt/host/c/tmp/"
 ```
-### Persistence Volume Claime:
+### Persistence Volume Claim:
 
 PersistentVolumeClaim will be referenced in a pod. 
 A PersistentVolumeClaim is created by specifying the minimum size and the access mode they require from the persistentVolume.
