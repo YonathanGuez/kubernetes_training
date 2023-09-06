@@ -240,6 +240,7 @@ Startup probes support the four basic Kubernetes probing mechanisms:
 - gRPC: Makes a gRPC health checking request to a port inside the container and uses its result to determine whether the probe succeeded.
 
 ### Summary
+
 Startup Probes: Used to check if the application inside the Container has started
 
 Liveness Probes: Used to check if the container is available and alive.
@@ -247,3 +248,89 @@ Liveness Probes: Used to check if the container is available and alive.
 Readiness Probes: Used to check if the application is ready to use and serve the traffic
 
 ## Add Persistent Volume to the pod.
+
+Build a percistance volume is useful for save Configuration and Data of your DB 
+For that you need to tools : Persistent Volume ant Persistence Volume Claime
+
+### Persistent Volume:
+That will tell you Pod where to stock all you data and what is the size 
+
+In this example we use storageClassName: hostpath (it s our local node storage)
+You can check that with : 
+```kubectl get storageclass
+```
+
+So we put local node storage + 1Go + call "/run/desktop/mnt/host/c/tmp/" for c:/tmp in windows:
+```
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-volume
+  labels:
+    type: local
+spec:
+  storageClassName: hostpath
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    # deployment volume on local machine windows : c:/tmp (youn need to have tmp available and empty in your local)
+    path: "/run/desktop/mnt/host/c/tmp/"
+```
+### Persistence Volume Claime:
+
+PersistentVolumeClaim will be referenced in a pod. 
+A PersistentVolumeClaim is created by specifying the minimum size and the access mode they require from the persistentVolume.
+Is same like in this example how to get 50mi from 1Gi:
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: example-claim
+spec:
+  storageClassName: hostpath
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Mi
+```
+### Test on Postgres with Statefulset 
+
+A StatefulSet does three big things differently from a Deployment:
+1- It creates a new PersistentVolumeClaim for each replica;
+2- It gives the pods sequential names, starting with statefulsetname-0.
+3- It starts the pods in a specific order (ascending numerically).
+This is useful when the database itself knows how to replicate data between different copies of itself.
+StatefulSet it will make sure to terminate the existing Pod before creating a new, so that there are never more than 1 (when you have 1 as desired number of replicas).
+
+Run Test :
+```
+kubectl apply -f .\ex-pg-volume-local-windows.yaml
+```
+
+Check deployments :
+```
+kubectl get all
+```
+
+Result :
+```
+NAME             READY   STATUS    RESTARTS        AGE
+pod/nginx        1/1     Running   12 (113m ago)   135d
+pod/postgres-0   1/1     Running   0               8s
+pod/utils        1/1     Running   29 (113m ago)   184d
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP    231d
+service/postgres     ClusterIP   10.108.123.30   <none>        5432/TCP   8s
+
+NAME                        READY   AGE
+statefulset.apps/postgres   1/1     8s
+```
+
+Check logs for postgres-0:
+```
+kubectl logs postgres-0
+```
